@@ -1,1 +1,2 @@
-web: gunicorn pind.wsgi:application
+web: gunicorn loyiha.wsgi:application
+
