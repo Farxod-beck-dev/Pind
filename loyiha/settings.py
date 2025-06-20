@@ -124,3 +124,12 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'note_list'
+import os
+
+# STATIC fayllar
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Render uchun
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(default='sqlite:///db.sqlite3')
