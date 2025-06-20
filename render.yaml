@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: pind
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn loyiha.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: loyiha.settings
+      - key: PYTHON_VERSION
+        value: 3.11
