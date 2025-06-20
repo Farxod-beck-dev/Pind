@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>O‘chirish</title>
+</head>
+<body>
+
+    <h2>"{{ note.title }}" ni o‘chirilsinmi?</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">🗑 Ha, o‘chir</button>
+    </form>
+
+    <br>
+    <a href="{% url 'note_list' %}">⬅️ Yo‘q, orqaga</a>
+
+</body>
+</html>
