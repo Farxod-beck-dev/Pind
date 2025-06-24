@@ -7,3 +7,7 @@ services:
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: loyiha.settings
+          python manage.py migrate
+startCommand: >
+  python manage.py migrate &&
+  gunicorn loyiha.wsgi:application

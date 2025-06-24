@@ -30,3 +30,21 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='pind/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
 ]
+from django.contrib import admin
+from django.urls import path
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+]
+from django.contrib import admin
+from django.urls import path
+from django.contrib.auth import views as auth_views
+from django.http import HttpResponse  # qo‘shing
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('', lambda request: HttpResponse('<h1>Welcome! Go to <a href="/login/">Login</a></h1>')),
+]
