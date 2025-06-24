@@ -1,11 +1,9 @@
 services:
   - type: web
-    name: pind
-    env: python
-    buildCommand: ""
+    name: django-loyiha
+    runtime: python
+    buildCommand: pip install -r requirements.txt
     startCommand: gunicorn loyiha.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: loyiha.settings
-      - key: PYTHON_VERSION
-        value: 3.11
