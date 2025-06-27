@@ -135,3 +135,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Render uchun
 import dj_database_url
 DATABASES['default'] = dj_database_url.config(default='sqlite:///db.sqlite3')
+
+LOGIN_REDIRECT_URL = 'note_list'
+LOGIN_REDIRECT_URL = 'note_list'
+LOGOUT_REDIRECT_URL = 'login'
