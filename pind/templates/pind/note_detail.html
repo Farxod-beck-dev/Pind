@@ -1,0 +1,17 @@
+<h2>{{ note.title }}</h2>
+<p>{{ note.content }}</p>
+
+<h3>Izohlar</h3>
+<ul>
+  {% for comment in note.comments.all %}
+    <li><b>{{ comment.user.username }}:</b> {{ comment.text }}</li>
+  {% empty %}
+    <li>Izoh yo‘q.</li>
+  {% endfor %}
+</ul>
+
+<form method="post" action="{% url 'add_comment' note.id %}">
+  {% csrf_token %}
+  <textarea name="text" placeholder="Izoh yozing..."></textarea><br>
+  <button type="submit">Yuborish</button>
+</form>

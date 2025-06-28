@@ -43,3 +43,45 @@ def note_delete(request, pk):
         note.delete()
         return redirect('note_list')
     return render(request, 'pind/note_confirm_delete.html', {'note': note})
+@login_required
+def note_detail(request, pk):
+    note = get_object_or_404(Note, pk=pk, user=request.user)
+    comments = note.comments.order_by('-created_at')
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.note = note
+            comment.user = request.user
+            comment.save()
+            return redirect('note_detail', pk=note.pk)
+    else:
+        form = CommentForm()
+
+    return render(request, 'pind/note_detail.html', {
+        'note': note,
+        'comments': comments,
+        'form': form
+    })
+
+from .models import Favorite
+
+@login_required
+def toggle_favorite(request, note_id):
+    note = get_object_or_404(Note, id=note_id, user=request.user)
+    favorite, created = Favorite.objects.get_or_create(user=request.user, note=note)
+    if not created:
+        favorite.delete()
+    return redirect('note_list')
+
+from django.db.models import Q
+
+@login_required
+def search_notes(request):
+    query = request.GET.get('q', '')
+    results = Note.objects.filter(
+        Q(user=request.user),  # faqat o‘z notelari
+        Q(title__icontains=query) | Q(content__icontains=query)
+    )
+    return render(request, 'notes/search_results.html', {'notes': results, 'query': query})

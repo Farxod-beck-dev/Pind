@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Qidiruv natijalari</title>
+</head>
+<body>
+
+<h2>"{{ query }}" so‘zi bo‘yicha natijalar:</h2>
+
+<a href="{% url 'note_list' %}">⬅️ Orqaga</a>
+
+<ul>
+    {% for note in notes %}
+        <li>
+            <strong>{{ note.title }}</strong> – {{ note.updated_at|date:"d.m.Y H:i" }} <br>
+            <p>{{ note.content|truncatewords:20 }}</p>
+        </li>
+    {% empty %}
+        <li>Hech narsa topilmadi.</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

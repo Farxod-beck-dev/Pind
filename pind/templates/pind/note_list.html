@@ -6,24 +6,43 @@
 </head>
 <body>
 
-    <h1>Salom, {{ user.username }}!</h1>
+<h1>Salom, {{ user.username }}!</h1>
 
-    <a href="{% url 'note_create' %}">➕ Yangi eslatma qo‘shish</a> |
-    <a href="{% url 'logout' %}">🚪 Chiqish</a>
+<!-- 🔍 Qidiruv form -->
+<form action="{% url 'search_notes' %}" method="get">
+    <input type="text" name="q" placeholder="Qidiruv...">
+    <button type="submit">🔍 Qidirish</button>
+</form>
 
-    <hr>
+<!-- ➕ Eslatma qo‘shish / 🚪 Chiqish -->
+<a href="{% url 'note_create' %}">➕ Yangi eslatma qo‘shish</a> |
+<a href="{% url 'logout' %}">🚪 Chiqish</a>
 
-    <ul>
-        {% for note in notes %}
-            <li>
-                <strong>{{ note.title }}</strong> — {{ note.updated_at|date:"d.m.Y H:i" }} <br>
-                <a href="{% url 'note_update' note.pk %}">✏️ Tahrirlash</a> |
-                <a href="{% url 'note_delete' note.pk %}">🗑 O‘chirish</a>
-            </li>
-        {% empty %}
-            <li>Eslatma yo‘q. Yangi qo‘sh!</li>
-        {% endfor %}
-    </ul>
+<hr>
+
+<ul>
+    {% for note in notes %}
+        <li>
+            <strong>{{ note.title }}</strong> – {{ note.updated_at|date:"d.m.Y H:i" }} <br>
+
+            <!-- ✏️ Tahrirlash / 🗑️ O‘chirish -->
+            <a href="{% url 'note_update' note.pk %}">✏️ Tahrirlash</a> |
+            <a href="{% url 'note_delete' note.pk %}">🗑️ O‘chirish</a> |
+
+            <!-- ⭐ Favorite (yulduzcha) -->
+            <form action="{% url 'toggle_favorite' note.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                {% if note.favorite_set.filter(user=request.user).exists %}
+                    <button type="submit" style="border: none; background: none; cursor: pointer;">⭐</button>
+                {% else %}
+                    <button type="submit" style="border: none; background: none; cursor: pointer;">☆</button>
+                {% endif %}
+            </form>
+        </li>
+    {% empty %}
+        <li>Eslatma yo‘q. <strong>Yangi</strong> qo‘sh!</li>
+    {% endfor %}
+</ul>
 
 </body>
 </html>
