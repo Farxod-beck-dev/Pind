@@ -9,5 +9,6 @@ urlpatterns = [
     path('note/<int:pk>/', views.note_detail, name='note_detail'),
     path('notes/<int:note_id>/favorite/', views.toggle_favorite, name='toggle_favorite'),
     path('search/', views.search_notes, name='search_notes'),
-
+    path('', views.note_list, name='note_list'),
 ]
+
