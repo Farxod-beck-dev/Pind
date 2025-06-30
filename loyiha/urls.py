@@ -48,3 +48,19 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('', lambda request: HttpResponse('<h1>Welcome! Go to <a href="/login/">Login</a></h1>')),
 ]
+from django.contrib import admin
+from django.urls import path, include  # <-- include ni qo‘sh
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('pind.urls')),  # <-- bu qatorda 'pind' app’ning url’lari ulanadi
+]
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('pind.urls')),  # pind ichidagi urls.py ishlaydi
+    path('accounts/', include('django.contrib.auth.urls')),  # login/logout uchun
+]
+

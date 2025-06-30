@@ -139,3 +139,4 @@ DATABASES['default'] = dj_database_url.config(default='sqlite:///db.sqlite3')
 LOGIN_REDIRECT_URL = 'note_list'
 LOGIN_REDIRECT_URL = 'note_list'
 LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'  # bu reverse() uchun default yo'nalish bo'ladi
